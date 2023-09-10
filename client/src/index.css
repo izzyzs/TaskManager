@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Alkalami&family=Amiri+Quran&family=Amiri:ital,wght@0,400;1,700&family=Aref+Ruqaa&family=Aref+Ruqaa+Ink&family=Cormorant:ital,wght@0,300;0,600;0,700;1,400;1,600;1,700&family=Hind+Siliguri:wght@300;700&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Noto+Color+Emoji&family=Qahiri&display=swap");
+
+:root {
+    --chocolatey: #4c212a;
+    --oxfordblue: #01172f;
+    --amethyst: #a669b8;
+    --greenish: #00635d;
+    --lightblue: #08a4bd;
+    --lightbluebutdarker: #055f6d;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--amethyst);
+}
+
+.emoji {
+    font-family: "Noto Color Emoji", sans-serif;
+}
+
+.container-fluid {
+    padding: 3% 7%;
+}
+
+.btn {
+    background-color: var(--lightblue);
+    border-color: var(--lightblue);
+}
+.btn:hover {
+    background-color: var(--lightbluebutdarker);
+    border-color: var(--lightbluebutdarker);
+}

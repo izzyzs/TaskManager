@@ -1,0 +1,12 @@
+.card {
+    background-color: var(--oxfordblue) !important;
+}
+
+.card-text {
+    color: var(--greenish);
+}
+
+#add-task .card-body .btn {
+    width: 100%;
+    height: 100%;
+}
