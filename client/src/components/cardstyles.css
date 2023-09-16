@@ -2,11 +2,26 @@
     background-color: var(--oxfordblue) !important;
 }
 
+.card-header {
+    display: flex;
+    justify-content: space-between;
+}
+.card-title {
+    color: var(--light-gray) !important;
+}
+
 .card-text {
     color: var(--greenish);
 }
 
-#add-task .card-body .btn {
+#add-task .card {
     width: 100%;
     height: 100%;
+}
+
+#add-task .btn {
+    width: 100%;
+    height: 100%;
+    font-size: 40px;
+    font-weight: 500;
 }

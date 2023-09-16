@@ -1,13 +1,20 @@
 import React from "react";
 import "../cardstyles.css";
+import TaskInterface from "../../TaskInterface";
 
-function AddTaskCard() {
+interface AddTaskCardProps {
+    openAddModal: () => void;
+}
+
+function AddTaskCard({ openAddModal }: AddTaskCardProps) {
     return (
-        <div id="add-task" className="card col-4">
-            <div className="card-body">
-                <a href="#" className="btn btn-primary">
-                    ADD TASK
-                </a>
+        <div id="add-task" className="col-sm-6 col-md-4 col-lg-3">
+            <div className="card">
+                <div className="card-body">
+                    <button className="btn btn-primary" onClick={openAddModal}>
+                        ADD TASK
+                    </button>
+                </div>
             </div>
         </div>
     );

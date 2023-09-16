@@ -3,10 +3,18 @@
 :root {
     --chocolatey: #4c212a;
     --oxfordblue: #01172f;
-    --amethyst: #a669b8;
+    --amethyst: #471f53;
     --greenish: #00635d;
     --lightblue: #08a4bd;
     --lightbluebutdarker: #055f6d;
+    --lightbluebutdarkest: #0b434c;
+    --light-gray: #adadad;
+
+    --emoji-font: "Noto Color Emoji", sans-serif;
+}
+
+* {
+    color: var(--light-gray);
 }
 
 body {
@@ -16,8 +24,13 @@ body {
     background-color: var(--amethyst);
 }
 
+body.modal-open {
+    overflow: hidden;
+    padding-right: 15px;
+}
+
 .emoji {
-    font-family: "Noto Color Emoji", sans-serif;
+    font-family: var(--emoji-font);
 }
 
 .container-fluid {
@@ -28,7 +41,13 @@ body {
     background-color: var(--lightblue);
     border-color: var(--lightblue);
 }
+
 .btn:hover {
     background-color: var(--lightbluebutdarker);
     border-color: var(--lightbluebutdarker);
+}
+
+.btn:active {
+    background-color: var(--lightbluebutdarkest) !important;
+    border-color: var(--lightbluebutdarkest) !important;
 }
