@@ -1,4 +1,4 @@
-import "./addtaskmodal.css";
+import "./modalstyles.css";
 import React from "react";
 
 function AddTaskModal() {

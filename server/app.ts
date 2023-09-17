@@ -1,11 +1,13 @@
 import express from "express";
 import "dotenv/config";
-import connectDB from "./db/connect.ts";
-import TaskModel from "./models/TaskModel.ts";
-import router from "./routes/TaskRoutes.ts";
+import connectDB from "./db/connect";
+import TaskModel from "./models/TaskModel";
+import tasks from "./routes/TaskRoutes";
+import { getAllTasks } from "./controllers/TaskController";
+import cors from "cors";
 
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3001;
 const mongoUri = process.env.MONGO_URI;
 
 const firstTask = new TaskModel({
@@ -16,8 +18,8 @@ const firstTask = new TaskModel({
     completed: false,
     important: false,
 });
-
-app.use("/api/tasks", router);
+app.use(cors());
+app.use("/api/tasks", tasks);
 
 const start = async function () {
     try {

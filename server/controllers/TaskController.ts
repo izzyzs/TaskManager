@@ -1,22 +1,29 @@
-import TaskModel from "../models/TaskModel.ts";
+import TaskModel from "../models/TaskModel";
+import { TaskInterface } from "../../shared/TaskInterface";
 import { Request, Response } from "express";
 
-export const getAllTasks = async function (req: Request, res: Response) {
+const getAllTasks = async function (req: Request, res: Response) {
     try {
         const tasks = await TaskModel.find({});
-        const taskList = [tasks];
-        res.status(200).json({ success: true, data: { taskList, nbHits: tasks.length } });
+        res.json({ success: true, data: { tasks, nbHits: tasks.length } });
     } catch (err) {
-        res.status(500).json({ error_msg: err });
+        res.json({ error_msg: err });
+        console.error(err);
     }
 };
 
-export const createTask = async function (req: Request, res: Response) {
+const createTask = async function (req: Request, res: Response) {
     try {
-    } catch (error) {}
+        const newTask = new TaskModel(req.body);
+        await newTask.save();
+        console.log("the newTask has been saved");
+    } catch (error) {
+        console.error(error);
+    }
 };
-// const getTask = async function (req: Request, res: Response) {};
-// const editTask = async function (req: Request, res: Response) {};
-// const deleteTask = async function (req: Request, res: Response) {};
+const editTask = async function (req: Request, res: Response) {};
+const deleteTask = async function (req: Request, res: Response) {};
 
 // export default { getAllTasks, getTask, createTask, editTask, deleteTask };
+
+export { getAllTasks, createTask, editTask, deleteTask };

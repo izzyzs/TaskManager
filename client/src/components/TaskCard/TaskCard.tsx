@@ -3,7 +3,7 @@ import "../cardstyles.css";
 import { TaskInterface } from "../../../../shared/TaskInterface";
 
 interface TaskCardProps {
-    openTaskModal: () => void;
+    openTaskModal: (task: TaskInterface) => void;
     taskData: TaskInterface;
 }
 
@@ -12,14 +12,14 @@ function TaskCard({ openTaskModal, taskData }: TaskCardProps) {
         <div className="col-sm-6 col-md-4 col-lg-3">
             <div className="card">
                 <div className="card-header">
-                    <h5 className="card-title">Task Title</h5>
+                    <h5 className="card-title">{taskData.name}</h5>
                     {/* This will be conditional on whdfether or not the task will be considered important */}
-                    <span className="emoji">{"\u203C"}</span>
+                    {taskData.isImportant && <span className="emoji">{"\u203C"}</span>}
                 </div>
                 <div className="card-body">
-                    <p className="card-text">Card blurb Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, reiciendis.</p>
+                    <p className="card-text">{taskData.short_description}</p>
                     <div className="btn-group-vertical" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-primary" onClick={openTaskModal}>
+                        <button type="button" className="btn btn-primary" onClick={() => openTaskModal(taskData)}>
                             See Details
                         </button>
                         <button type="button" className="btn btn-primary">

@@ -1,7 +1,13 @@
-import mongoose, { model } from "mongoose";
-import { TaskInterface } from "../../shared/TaskInterface.ts";
+import mongoose from "mongoose";
+import { TaskInterface } from "../../shared/TaskInterface";
+import { ObjectId } from "mongodb";
 
-const TaskSchema = new mongoose.Schema<TaskInterface>({
+interface TaskModelInterface extends TaskInterface {
+    _id: ObjectId;
+}
+
+const TaskSchema = new mongoose.Schema<TaskModelInterface>({
+    _id: { type: ObjectId },
     name: {
         type: String,
         required: [true, "You must provide a name for your task!!"],

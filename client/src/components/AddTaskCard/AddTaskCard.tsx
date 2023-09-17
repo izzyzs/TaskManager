@@ -1,6 +1,5 @@
 import React from "react";
 import "../cardstyles.css";
-import TaskInterface from "../../TaskInterface";
 
 interface AddTaskCardProps {
     openAddModal: () => void;

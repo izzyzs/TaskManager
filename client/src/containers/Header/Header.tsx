@@ -7,7 +7,7 @@ function Header() {
             <div className="container-fluid">
                 <h1>TaskManager</h1>
                 <div className="form-check">
-                    <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked />
+                    <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
                     <label className="form-check-label" htmlFor="flexCheckChecked">
                         Important Tasks <span className="emoji">{"\u203C"}</span>
                     </label>

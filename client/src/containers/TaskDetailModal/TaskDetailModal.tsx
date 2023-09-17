@@ -1,45 +1,38 @@
 import React from "react";
 import { TaskInterface } from "../../../../shared/TaskInterface";
 import { modalBodyStylesFunc } from "../utils/utils";
+import "./modalstyles.css";
 
 interface ModalProps {
-    show: boolean;
-    onHide: () => void;
+    isShown: boolean;
+    setIsShown: (s: boolean) => void;
     task: TaskInterface;
 }
 
-function TaskDetailModal({ show, onHide, task }: ModalProps) {
-    const [isOpen, setIsOpen] = React.useState(false);
-
+function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
     React.useEffect(
         function () {
-            modalBodyStylesFunc(isOpen);
+            modalBodyStylesFunc(isShown);
         },
-        [isOpen]
+        [isShown]
     );
 
     return (
-        <div
-            className={`modal ${show ? "show" : ""} fade modal-dialog modal-dialog-centered modal-dialog-scrollable`}
-            id="exampleModal"
-            tabIndex={-1}
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-        >
-            <div className="modal-dialog">
+        <div className={`modal ${isShown ? "show" : "hide"} fade`} id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h1 className="modal-title fs-5 flex-grow-1" id="exampleModalLabel">
                             {task.name}
                         </h1>
-                        {task.isImportant && <p>important</p>}
+                        {task.isImportant && <span className="emoji">{"\u203C"}</span>}
                         <button
                             type="button"
                             className="btn-close"
                             data-bs-dismiss="modal"
                             aria-label="Close"
-                            onClick={function () {
-                                setIsOpen(false);
+                            onClick={() => {
+                                setIsShown(false);
                             }}
                         ></button>
                     </div>
@@ -49,14 +42,21 @@ function TaskDetailModal({ show, onHide, task }: ModalProps) {
                     </div>
                     <div className="modal-footer justify-content-between flex-nowrap overflow-scroll">
                         <div className="form-check">
-                            <input className="form-check-input" type="checkbox" checked={task.isImportant && true} id="flexCheckDefault" />
+                            <input className="form-check-input" type="checkbox" checked={task.isCompleted && true} id="flexCheckDefault" />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 Task Completed
                             </label>
                         </div>
 
                         <div>
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={onHide}>
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                                onClick={() => {
+                                    setIsShown(false);
+                                }}
+                            >
                                 Close
                             </button>
                             <button type="button" className="btn btn-danger">

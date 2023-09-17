@@ -26,7 +26,7 @@ body {
 
 body.modal-open {
     overflow: hidden;
-    padding-right: 15px;
+    padding-right: 0px;
 }
 
 .emoji {

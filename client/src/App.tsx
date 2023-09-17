@@ -5,48 +5,39 @@ import { Header, TaskContainer, TaskDetailModal, AddTaskModal } from "./containe
 import { TaskInterface, TaskDataInterface } from "../../shared/TaskInterface.ts";
 
 function App() {
-    const [allTasks, setAllTasks] = React.useState<TaskDataInterface | null>(null);
-    React.useEffect(function () {
-        fetch("/api/tasks")
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                setAllTasks(data);
-            })
-            .catch(function (error) {
-                console.error("Error fetching data: ", error);
-            });
-    });
-    const [showAddModal, setShowAddModal] = React.useState(false);
-    const [addModalContent, setAddModalContent] = React.useState({});
+    // const [showAddModal, setShowAddModal] = React.useState(false);
+    // const [addModalContent, setAddModalContent] = React.useState({});
 
-    const openAddModal = function () {
-        setShowAddModal(true);
-    };
+    // const openAddModal = function () {
+    //     setShowAddModal(true);
+    // };
 
-    const closeAddModal = () => {
-        setShowAddModal(false);
-    };
+    // const closeAddModal = () => {
+    //     setShowAddModal(false);
+    // };
+
+    const [taskData, setTaskData] = React.useState<TaskInterface>({ name: "Empty Task", isCompleted: false, isImportant: false });
 
     const [showTaskDetailModal, setShowTaskDetailModal] = React.useState(false);
-    const [taskDetailModalContent, setTaskDetailModalContent] = React.useState({});
 
-    const openTaskDetailModal = function () {
+    const openTaskDetailModal = function (task: TaskInterface) {
         setShowTaskDetailModal(true);
+        setTaskData(task);
     };
 
-    const closeTaskDetailModal = () => {
-        setShowTaskDetailModal(false);
+    const [showAddTaskModal, setShowAddTaskModal] = React.useState(false);
+
+    const openAddTaskModal = function () {
+        setShowAddTaskModal(true);
     };
 
     return (
         <div className="App">
             {/* <Form /> */}
             <Header />
-            {/* <TaskDetailModal onHide={closeTaskDetailModal} /> */}
-            {/* <AddTaskModal onHide={closeAddModal} /> */}
-            {allTasks ? <TaskContainer openAddModal={openAddModal} openDetailModal={openTaskDetailModal} allTasks={allTasks} /> : <h3>loading last data...</h3>}
+            <TaskDetailModal isShown={showTaskDetailModal} setIsShown={setShowTaskDetailModal} task={taskData} />
+            <AddTaskModal />
+            <TaskContainer openAddModal={openAddTaskModal} openTaskModal={openTaskDetailModal} />
         </div>
     );
 }
