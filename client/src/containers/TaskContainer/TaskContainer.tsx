@@ -10,6 +10,7 @@ interface TaskContainerProps {
 
 function TaskContainer({ openAddModal, openTaskModal }: TaskContainerProps) {
     const [allTasks, setAllTasks] = React.useState<TaskDataInterface | null>(null);
+
     React.useEffect(function () {
         fetch("http://localhost:3001/api/tasks", { method: "GET" })
             .then((response) => {
@@ -21,21 +22,22 @@ function TaskContainer({ openAddModal, openTaskModal }: TaskContainerProps) {
             .then((data) => setAllTasks(data))
             .catch((error) => console.error("Error fetching data: ", error));
     }, []);
+
     return (
         <div className="row container-fluid g-4 gy-5 text-center">
             <AddTaskCard openAddModal={openAddModal} />
             {allTasks ? (
                 <>
-                    {allTasks.data.tasks.map(function (item, index) {
+                    {allTasks.data.tasks.map(function (task) {
                         return (
-                            <React.Fragment key={index}>
-                                <TaskCard openTaskModal={openTaskModal} taskData={item} />
+                            <React.Fragment key={task._id.toString()}>
+                                <TaskCard loadingCard={false} openTaskModal={openTaskModal} taskData={task} />
                             </React.Fragment>
                         );
                     })}
                 </>
             ) : (
-                <h6>Loading all tasks...</h6>
+                <TaskCard loadingCard={true} />
             )}
         </div>
     );

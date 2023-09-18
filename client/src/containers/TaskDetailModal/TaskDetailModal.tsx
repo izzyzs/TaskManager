@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskInterface } from "../../../../shared/TaskInterface";
 import { modalBodyStylesFunc } from "../utils/utils";
+import { ObjectId } from "mongodb";
 import "./modalstyles.css";
 
 interface ModalProps {
@@ -8,6 +9,13 @@ interface ModalProps {
     setIsShown: (s: boolean) => void;
     task: TaskInterface;
 }
+
+const deleteTask = function (id: ObjectId) {
+    const taskIdAsString: string = id.toString();
+    fetch(`http://localhost:3001/api/tasks/${taskIdAsString}`, { method: "DELETE" })
+        .then((response) => response.json())
+        .catch((error) => console.error("Error deleting task: ", error));
+};
 
 function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
     React.useEffect(
@@ -18,7 +26,20 @@ function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
     );
 
     return (
-        <div className={`modal ${isShown ? "show" : "hide"} fade`} id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div
+            className={`modal ${isShown ? "show" : "hide"} fade`}
+            id="exampleModal"
+            tabIndex={-1}
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            onClick={
+                isShown
+                    ? () => {
+                          setIsShown(false);
+                      }
+                    : () => {}
+            }
+        >
             <div className="modal-dialog modal-dialog-scrollable">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -59,7 +80,15 @@ function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
                             >
                                 Close
                             </button>
-                            <button type="button" className="btn btn-danger">
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => {
+                                    deleteTask(task._id);
+                                    setIsShown(false);
+                                    // deleteTaskCard();
+                                }}
+                            >
                                 Delete
                             </button>
                             <button type="button" className="btn btn-primary">
