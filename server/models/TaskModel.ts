@@ -2,11 +2,7 @@ import mongoose from "mongoose";
 import { TaskInterface } from "../../shared/TaskInterface";
 import { ObjectId } from "mongodb";
 
-interface TaskModelInterface extends TaskInterface {
-    _id: ObjectId;
-}
-
-const TaskSchema = new mongoose.Schema<TaskModelInterface>({
+const TaskSchema = new mongoose.Schema<TaskInterface>({
     _id: { type: ObjectId },
     name: {
         type: String,
@@ -30,6 +26,10 @@ const TaskSchema = new mongoose.Schema<TaskModelInterface>({
         default: false,
     },
     isImportant: {
+        type: Boolean,
+        default: false,
+    },
+    isDeleted: {
         type: Boolean,
         default: false,
     },
