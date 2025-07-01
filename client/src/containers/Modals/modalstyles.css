@@ -1,0 +1,20 @@
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.608);
+}
+
+.modal-content {
+    background-color: whitesmoke !important;
+    /* background-color: var(--oxfordblue) !important; */
+}
+
+.modal-footer {
+    padding: 0 !important;
+}

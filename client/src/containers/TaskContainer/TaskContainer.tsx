@@ -1,7 +1,7 @@
 import React from "react";
 import "./taskcontainer.css";
 import { AddTaskCard, TaskCard } from "../../components";
-import { TaskInterface, TaskDataInterface } from "../../../../shared/TaskInterface";
+import type { TaskInterface, TaskDataInterface } from "../../../../shared/TaskInterface";
 import { loadTasks } from "../../services/taskService";
 
 interface TaskContainerProps {
@@ -9,23 +9,14 @@ interface TaskContainerProps {
     openTaskModal: (task: TaskInterface) => void;
     setIsSuccessfulDeleteProp: (d: boolean) => void;
     isSuccessfulDelete: boolean;
-    initialData: TaskDataInterface | undefined;
+    taskData: TaskDataInterface | undefined;
 }
 
-function TaskContainer({ openAddModal, openTaskModal, isSuccessfulDelete, initialData }: TaskContainerProps) {
+function TaskContainer({ openAddModal, openTaskModal, taskData }: TaskContainerProps) {
     const [allTasks, setAllTasks] = React.useState<TaskDataInterface | null>(null);
     React.useEffect(() => {
-        initialData && setAllTasks(initialData);
-    }, []);
-
-    React.useEffect(
-        function () {
-            if (isSuccessfulDelete) {
-                loadTasks(setAllTasks);
-            }
-        },
-        [isSuccessfulDelete]
-    );
+        taskData && setAllTasks(taskData);
+    }, [taskData]);
 
     return (
         <div className="row container-fluid g-4 gy-5 text-center">

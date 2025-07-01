@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Alkalami&family=Amiri+Quran&family=Amiri:ital,wght@0,400;1,700&family=Aref+Ruqaa&family=Aref+Ruqaa+Ink&family=Cormorant:ital,wght@0,300;0,600;0,700;1,400;1,600;1,700&family=Hind+Siliguri:wght@300;700&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Noto+Color+Emoji&family=Qahiri&display=swap");
+
+:root {
+    --chocolatey: #4c212a;
+    --oxfordblue: #01172f;
+    --amethyst: #471f53;
+    --greenish: #00635d;
+    --lightblue: #08a4bd;
+    --lightbluebutdarker: #055f6d;
+    --lightbluebutdarkest: #0b434c;
+    --light-gray: #adadad;
+
+    --emoji-font: "Noto Color Emoji", sans-serif;
+}
+
+* {
+    color: #050505;
+    /* color: var(--light-gray); */
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #f9fafb;
+    /* background-color: var(--amethyst); */
+}
+
+body.modal-open {
+    overflow: hidden;
+    padding-right: 0px;
+}
+
+.emoji {
+    font-family: var(--emoji-font);
+}
+
+.container-fluid {
+    padding: 3% 7%;
+}
+
+.btn {
+    /* background-color: var(--lightblue); */
+    background-color: #3b82f6;
+    border-color: var(--lightblue);
+}
+
+.btn:hover {
+    background-color: var(--lightbluebutdarker);
+    border-color: var(--lightbluebutdarker);
+}
+
+.btn:active {
+    background-color: var(--lightbluebutdarkest) !important;
+    border-color: var(--lightbluebutdarkest) !important;
+}

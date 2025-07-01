@@ -1,6 +1,5 @@
-import React from "react";
 import "../cardstyles.css";
-import { TaskInterface } from "../../../../shared/TaskInterface";
+import type { TaskInterface } from "../../../../shared/TaskInterface";
 
 interface TaskCardProps {
     loadingCard: boolean;

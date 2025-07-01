@@ -1,4 +1,5 @@
-import { TaskDataInterface } from "../../../shared/TaskInterface";
+import type { TaskDataInterface } from "../../../shared/TaskInterface";
+
 interface NecessaryForTask {
     name: string;
     shortDescription?: string;
@@ -14,11 +15,14 @@ export function loadTasks(setTaskData: (data: TaskDataInterface) => void) {
             }
             return response.json();
         })
-        .then((data) => setTaskData(data))
+        .then((data) => {
+            console.log("Fetched data:", data);
+            setTaskData(data);
+        })
         .catch((error) => console.error("Error fetching data: ", error));
 }
 
-export function addTask(data: NecessaryForTask) {
+export function addTask(data: NecessaryForTask, onSuccess: () => void) {
     fetch("http://localhost:3001/api/tasks", {
         method: "PUT",
         headers: {
@@ -27,10 +31,12 @@ export function addTask(data: NecessaryForTask) {
         body: JSON.stringify(data),
     })
         .then((response) => {
-            if (!response.ok) {
+            if (response.ok) {
+                onSuccess();
+                return response.json();
+            } else {
                 throw new Error("Failed to Add Task");
             }
-            return response.json();
         })
         .then((result) => {
             console.log("Success:", result);

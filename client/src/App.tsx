@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Header, TaskContainer, TaskDetailModal, AddTaskModal } from "./containers";
-import { TaskInterface, TaskDataInterface } from "../../shared/TaskInterface.ts";
+import type { TaskInterface, TaskDataInterface } from "../../shared/TaskInterface.ts";
 import { loadTasks } from "./services/taskService.ts";
 
 function App() {
-    const [intialTaskData, setInitialTaskData] = React.useState<TaskDataInterface>();
+    const [allTasksData, setAllTasksData] = React.useState<TaskDataInterface>();
     const [refreshTrigger, setRefreshTrigger] = React.useState(0);
     // const [showAddModal, setShowAddModal] = React.useState(false);
     // const [addModalContent, setAddModalContent] = React.useState({});
@@ -47,21 +46,20 @@ function App() {
     const [handleSuccesfulDelete, setHandleSuccesfulDelete] = React.useState(false);
 
     useEffect(() => {
-        loadTasks(setInitialTaskData);
+        loadTasks(setAllTasksData);
     }, [refreshTrigger]);
 
     return (
         <div className="App">
-            {/* <Form /> */}
             <Header />
             <TaskDetailModal isShown={showTaskDetailModal} setIsShown={setShowTaskDetailModal} task={taskData} onSuccess={() => setRefreshTrigger((prev) => prev + 1)} />
-            <AddTaskModal isShown={showAddTaskModal} setIsShown={setShowAddTaskModal} />
+            <AddTaskModal isShown={showAddTaskModal} setIsShown={setShowAddTaskModal} onSuccess={() => setRefreshTrigger((prev) => prev + 1)} />
             <TaskContainer
                 openAddModal={openAddTaskModal}
                 openTaskModal={openTaskDetailModal}
                 setIsSuccessfulDeleteProp={setHandleSuccesfulDelete}
                 isSuccessfulDelete={handleSuccesfulDelete}
-                initialData={intialTaskData}
+                taskData={allTasksData}
             />
         </div>
     );
