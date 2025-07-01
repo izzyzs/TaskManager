@@ -1,29 +1,33 @@
 import React from "react";
 import { TaskInterface } from "../../../../shared/TaskInterface";
 import { modalBodyStylesFunc } from "../utils/utils";
-import { ObjectId } from "mongodb";
 import "./modalstyles.css";
 
 interface ModalProps {
     isShown: boolean;
     setIsShown: (s: boolean) => void;
     task: TaskInterface;
+    onSuccess: () => void;
 }
 
-const deleteTask = function (id: ObjectId) {
+function deleteTask(id: number, onSuccess: () => void) {
     const taskIdAsString: string = id.toString();
     fetch(`http://localhost:3001/api/tasks/${taskIdAsString}`, { method: "DELETE" })
-        .then((response) => response.json())
+        .then(function (response) {
+            if (response.ok) {
+                onSuccess();
+            }
+        })
         .catch((error) => console.error("Error deleting task: ", error));
-};
+}
 
-function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
-    React.useEffect(
-        function () {
-            modalBodyStylesFunc(isShown);
-        },
-        [isShown]
-    );
+function TaskDetailModal({ isShown, setIsShown, task, onSuccess }: ModalProps) {
+    // React.useEffect(
+    //     function () {
+    //         modalBodyStylesFunc(isShown);
+    //     },
+    //     [isShown]
+    // );
 
     return (
         <div
@@ -40,7 +44,7 @@ function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
                     : () => {}
             }
         >
-            <div className="modal-dialog modal-dialog-scrollable">
+            <div className="modal-dialog modal-dialog-scrollable" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <h1 className="modal-title fs-5 flex-grow-1" id="exampleModalLabel">
@@ -53,13 +57,13 @@ function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
                             data-bs-dismiss="modal"
                             aria-label="Close"
                             onClick={() => {
-                                setIsShown(false);
+                                setIsShown(!isShown);
                             }}
                         ></button>
                     </div>
                     <div className="modal-body">
-                        {task.short_description && <h2>{task.short_description}</h2>}
-                        {task.task_body && <p>{task.task_body}</p>}
+                        {task.shortDescription && <h2>{task.shortDescription}</h2>}
+                        {task.taskBody && <p>{task.taskBody}</p>}
                     </div>
                     <div className="modal-footer justify-content-between flex-nowrap overflow-scroll">
                         <div className="form-check">
@@ -84,9 +88,8 @@ function TaskDetailModal({ isShown, setIsShown, task }: ModalProps) {
                                 type="button"
                                 className="btn btn-danger"
                                 onClick={() => {
-                                    deleteTask(task._id);
+                                    deleteTask(task.id, onSuccess);
                                     setIsShown(false);
-                                    // deleteTaskCard();
                                 }}
                             >
                                 Delete

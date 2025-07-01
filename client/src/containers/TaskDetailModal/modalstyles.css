@@ -1,5 +1,5 @@
 .hide {
-    display: hidden !important;
+    display: none !important;
 }
 
 .show {
@@ -11,7 +11,8 @@
 }
 
 .modal-content {
-    background-color: var(--oxfordblue) !important;
+    background-color: whitesmoke !important;
+    /* background-color: var(--oxfordblue) !important; */
 }
 
 .modal-footer {

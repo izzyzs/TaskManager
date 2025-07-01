@@ -1,9 +1,8 @@
-import { ObjectId } from "mongodb";
 export interface TaskInterface {
-    _id: ObjectId;
+    id: number;
     name: string;
-    short_description?: string;
-    task_body?: string;
+    shortDescription?: string;
+    taskBody?: string;
     isCompleted: boolean;
     isImportant: boolean;
     isDeleted: boolean;

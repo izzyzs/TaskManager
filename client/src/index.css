@@ -14,14 +14,16 @@
 }
 
 * {
-    color: var(--light-gray);
+    color: #050505;
+    /* color: var(--light-gray); */
 }
 
 body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--amethyst);
+    background-color: #f9fafb;
+    /* background-color: var(--amethyst); */
 }
 
 body.modal-open {
@@ -38,7 +40,8 @@ body.modal-open {
 }
 
 .btn {
-    background-color: var(--lightblue);
+    /* background-color: var(--lightblue); */
+    background-color: #3b82f6;
     border-color: var(--lightblue);
 }
 
