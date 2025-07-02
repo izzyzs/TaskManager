@@ -14,5 +14,5 @@ model Task {
     taskBody            String?
     isCompleted         Boolean @default(false)
     isImportant         Boolean @default(false)
-    isDeleted           Boolean @default(true)
+    isDeleted           Boolean @default(false)
 }

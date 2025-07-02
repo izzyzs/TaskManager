@@ -1,6 +1,12 @@
 import "./modalstyles.css";
 import React from "react";
 import { addTask } from "../../services/taskService";
+
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 interface NecessaryForTask {
     name: string;
     shortDescription?: string;
@@ -39,23 +45,23 @@ function AddTaskModal({ isShown, setIsShown, onSuccess }: AddTaskModalProps) {
     };
 
     return (
-        <div
-            className={`modal ${isShown ? "show" : "hide"} fade`}
-            id="exampleModal"
-            tabIndex={-1}
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            onClick={
-                isShown
-                    ? () => {
-                          setIsShown(false);
-                      }
-                    : () => {}
-            }
-        >
-            <div className="modal-dialog modal-dialog-scrollable" onClick={(e) => e.stopPropagation()}>
-                <div className="modal-content">
-                    <div className="modal-header">
+        <Dialog open={isShown} onOpenChange={setIsShown}>
+            <DialogContent
+                // className={`modal ${isShown ? "show" : "hide"} fade`}
+                id="exampleModal"
+                tabIndex={-1}
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+                onClick={
+                    isShown
+                        ? () => {
+                              setIsShown(false);
+                          }
+                        : () => {}
+                }
+            >
+                <div className="modal-dialog modal-dialog-scrollable" onClick={(e) => e.stopPropagation()}>
+                    <DialogHeader>
                         <h1 className="modal-title fs-5 flex-grow-1" id="exampleModalLabel">
                             Add Task
                         </h1>
@@ -68,43 +74,43 @@ function AddTaskModal({ isShown, setIsShown, onSuccess }: AddTaskModalProps) {
                                 setIsShown(false);
                             }}
                         ></button>
-                    </div>
+                    </DialogHeader>
                     <div className="model-body p-3">
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
-                                <label htmlFor="taskName" className="form-label">
+                                <Label htmlFor="taskName" className="form-label">
                                     Title
-                                </label>
-                                <input type="text" className="form-control" id="taskName" name="name" value={formData.name} onChange={handleChange} required />
+                                </Label>
+                                <Input type="text" className="form-control" id="taskName" name="name" value={formData.name} onChange={handleChange} required />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="taskShortDescription" className="form-label">
+                                <Label htmlFor="taskShortDescription" className="form-label">
                                     Short Description
-                                </label>
-                                <textarea className="form-control" id="taskShortDescription" name="shortDescription" value={formData.shortDescription} onChange={handleChange} rows={1}></textarea>
+                                </Label>
+                                <Textarea className="form-control" id="taskShortDescription" name="shortDescription" value={formData.shortDescription} onChange={handleChange} rows={1}></Textarea>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="taskBody" className="form-label">
+                                <Label htmlFor="taskBody" className="form-label">
                                     Task Body
-                                </label>
-                                <textarea className="form-control" id="taskBody" name="taskBody" value={formData.taskBody} onChange={handleChange} rows={2}></textarea>
+                                </Label>
+                                <Textarea className="form-control" id="taskBody" name="taskBody" value={formData.taskBody} onChange={handleChange} rows={2}></Textarea>
                             </div>
                             <div className="mb-3 flex">
-                                <label htmlFor="taskIsImportant" className="form-label pe-2">
+                                <Label htmlFor="taskIsImportant" className="form-label pe-2">
                                     Important?
-                                </label>
-                                <input className="form-check-input" type="checkbox" id="taskIsImportant" name="isImportant" checked={formData.isImportant} onChange={handleCheckboxChange} />
+                                </Label>
+                                <Input className="form-check-input" type="checkbox" id="taskIsImportant" name="isImportant" checked={formData.isImportant} onChange={handleCheckboxChange} />
                                 <div className="inline-flex justify-end">
-                                    <button type="submit" className="ms-auto btn btn-primary" data-bs-dismiss="modal">
+                                    <Button type="submit" className="ms-auto btn btn-primary" data-bs-dismiss="modal">
                                         Submit Task
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 }
 

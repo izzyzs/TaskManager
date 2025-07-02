@@ -45,3 +45,14 @@ export function addTask(data: NecessaryForTask, onSuccess: () => void) {
             console.error("Error:", error);
         });
 }
+
+export function deleteTask(id: number, onSuccess: () => void) {
+    const taskIdAsString: string = id.toString();
+    fetch(`http://localhost:3001/api/tasks/${taskIdAsString}`, { method: "DELETE" })
+        .then(function (response) {
+            if (response.ok) {
+                onSuccess();
+            }
+        })
+        .catch((error) => console.error("Error deleting task: ", error));
+}

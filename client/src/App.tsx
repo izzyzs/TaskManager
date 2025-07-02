@@ -3,6 +3,7 @@ import "./App.css";
 import { Header, TaskContainer, TaskDetailModal, AddTaskModal } from "./containers";
 import type { TaskInterface, TaskDataInterface } from "../../shared/TaskInterface.ts";
 import { loadTasks } from "./services/taskService.ts";
+import { ThemeProvider } from "./components/ui/theme-provider.tsx";
 
 function App() {
     const [allTasksData, setAllTasksData] = React.useState<TaskDataInterface>();
@@ -43,25 +44,19 @@ function App() {
     // HANDLING SUCCESSFUL DELETE REQUEST
     // **********************************
 
-    const [handleSuccesfulDelete, setHandleSuccesfulDelete] = React.useState(false);
+    // const [handleSuccesfulDelete, setHandleSuccesfulDelete] = React.useState(false);
 
     useEffect(() => {
         loadTasks(setAllTasksData);
     }, [refreshTrigger]);
 
     return (
-        <div className="App">
+        <ThemeProvider>
             <Header />
             <TaskDetailModal isShown={showTaskDetailModal} setIsShown={setShowTaskDetailModal} task={taskData} onSuccess={() => setRefreshTrigger((prev) => prev + 1)} />
             <AddTaskModal isShown={showAddTaskModal} setIsShown={setShowAddTaskModal} onSuccess={() => setRefreshTrigger((prev) => prev + 1)} />
-            <TaskContainer
-                openAddModal={openAddTaskModal}
-                openTaskModal={openTaskDetailModal}
-                setIsSuccessfulDeleteProp={setHandleSuccesfulDelete}
-                isSuccessfulDelete={handleSuccesfulDelete}
-                taskData={allTasksData}
-            />
-        </div>
+            <TaskContainer openAddModal={openAddTaskModal} openTaskModal={openTaskDetailModal} taskData={allTasksData} onSuccess={() => setRefreshTrigger((prev) => prev + 1)} />
+        </ThemeProvider>
     );
 }
 

@@ -1,22 +1,18 @@
 import type { TaskInterface } from "../../../../shared/TaskInterface";
 import "./modalstyles.css";
 
+import { deleteTask } from "@/services/taskService";
+
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 interface ModalProps {
     isShown: boolean;
     setIsShown: (s: boolean) => void;
     task: TaskInterface;
     onSuccess: () => void;
-}
-
-function deleteTask(id: number, onSuccess: () => void) {
-    const taskIdAsString: string = id.toString();
-    fetch(`http://localhost:3001/api/tasks/${taskIdAsString}`, { method: "DELETE" })
-        .then(function (response) {
-            if (response.ok) {
-                onSuccess();
-            }
-        })
-        .catch((error) => console.error("Error deleting task: ", error));
 }
 
 function TaskDetailModal({ isShown, setIsShown, task, onSuccess }: ModalProps) {
@@ -28,28 +24,28 @@ function TaskDetailModal({ isShown, setIsShown, task, onSuccess }: ModalProps) {
     // );
 
     return (
-        <div
-            className={`modal ${isShown ? "show" : "hide"} fade`}
-            id="exampleModal"
-            tabIndex={-1}
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            onClick={
-                isShown
-                    ? () => {
-                          setIsShown(false);
-                      }
-                    : () => {}
-            }
-        >
-            <div className="modal-dialog modal-dialog-scrollable" onClick={(e) => e.stopPropagation()}>
-                <div className="modal-content">
-                    <div className="modal-header">
+        <Dialog open={isShown} onOpenChange={setIsShown}>
+            <DialogContent
+                className="text-center"
+                id="exampleModal"
+                tabIndex={-1}
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+                onClick={
+                    isShown
+                        ? () => {
+                              setIsShown(false);
+                          }
+                        : () => {}
+                }
+            >
+                <div className="modal-dialog modal-dialog-scrollable" onClick={(e) => e.stopPropagation()}>
+                    <DialogHeader>
                         <h1 className="modal-title fs-5 flex-grow-1" id="exampleModalLabel">
                             {task.name}
                         </h1>
                         {task.isImportant && <span className="emoji">{"\u203C"}</span>}
-                        <button
+                        {/* <Button
                             type="button"
                             className="btn-close"
                             data-bs-dismiss="modal"
@@ -57,49 +53,49 @@ function TaskDetailModal({ isShown, setIsShown, task, onSuccess }: ModalProps) {
                             onClick={() => {
                                 setIsShown(!isShown);
                             }}
-                        ></button>
-                    </div>
-                    <div className="modal-body">
-                        {task.shortDescription && <h2>{task.shortDescription}</h2>}
-                        {task.taskBody && <p>{task.taskBody}</p>}
-                    </div>
-                    <div className="modal-footer justify-content-between flex-nowrap overflow-scroll">
+                        ></Button> */}
+                    </DialogHeader>
+
+                    {task.shortDescription && <h2 className="py-1">{task.shortDescription}</h2>}
+                    {task.taskBody && <p className="py-2">{task.taskBody}</p>}
+
+                    <DialogFooter>
                         <div className="form-check">
-                            <input className="form-check-input" type="checkbox" checked={task.isCompleted && true} id="flexCheckDefault" />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">
+                            <Label className="form-check-label" htmlFor="flexCheckDefault">
                                 Task Completed
-                            </label>
+                            </Label>
+                            <Input className="form-check-input" type="checkbox" checked={task.isCompleted && true} id="flexCheckDefault" />
                         </div>
 
                         <div>
-                            <button
+                            <Button
                                 type="button"
-                                className="btn btn-secondary"
+                                className="btn btn-secondary mx-1"
                                 data-bs-dismiss="modal"
                                 onClick={() => {
                                     setIsShown(false);
                                 }}
                             >
                                 Close
-                            </button>
-                            <button
+                            </Button>
+                            <Button
                                 type="button"
-                                className="btn btn-danger"
+                                className="btn btn-danger mx-1"
                                 onClick={() => {
                                     deleteTask(task.id, onSuccess);
                                     setIsShown(false);
                                 }}
                             >
                                 Delete
-                            </button>
-                            <button type="button" className="btn btn-primary">
+                            </Button>
+                            <Button type="button" className="btn btn-primary mx-1">
                                 Save changes
-                            </button>
+                            </Button>
                         </div>
-                    </div>
+                    </DialogFooter>
                 </div>
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 }
 
